@@ -283,6 +283,8 @@ int main() {
   u"guten morgen";
   U"buenos dias";
   u8"buongiorno";
+  "q\749q\qq\xq\8q\9q";
+  "\x00000000a";
 }
 
 --------------------------------------------------------------------------------
@@ -327,7 +329,23 @@ int main() {
           (string_content)))
       (expression_statement
         (string_literal
-          (string_content))))))
+          (string_content)))
+      (expression_statement
+        (string_literal
+          (string_content)
+          (escape_sequence)
+          (string_content)
+          (invalid_escape_sequence)
+          (string_content)
+          (invalid_escape_sequence)
+          (string_content)
+          (invalid_escape_sequence)
+          (string_content)
+          (invalid_escape_sequence)
+          (string_content)))
+      (expression_statement
+        (string_literal
+          (escape_sequence))))))
 
 ================================================================================
 Character literals
@@ -343,6 +361,8 @@ int main() {
   U'\xa1';
   u8'\x1A';
   '\x3';
+  '\q';
+  '\x00000000a';
 }
 
 --------------------------------------------------------------------------------
@@ -378,6 +398,12 @@ int main() {
       (expression_statement
         (char_literal
           (escape_sequence)))
+      (expression_statement
+        (char_literal
+          (escape_sequence)))
+      (expression_statement
+        (char_literal
+          (invalid_escape_sequence)))
       (expression_statement
         (char_literal
           (escape_sequence))))))
@@ -682,6 +708,7 @@ int main() {
   sizeof(1) + 1;
   sizeof((1) + 1);
   sizeof(int) + 1;
+  sizeof(foo)();
   sizeof(struct foo) + sizeof(struct bar) + 1;
 }
 
@@ -738,6 +765,12 @@ int main() {
             (type_descriptor
               (primitive_type)))
           (number_literal)))
+      (expression_statement
+        (sizeof_expression
+          (call_expression
+            (parenthesized_expression
+              (identifier))
+            (argument_list))))
       (expression_statement
         (binary_expression
           (binary_expression
@@ -848,6 +881,8 @@ int main() {
     8
   };
   z = (char const []) {'a', 'b'};
+  (static int){42};
+  (static thread_local long){1l};
 }
 
 --------------------------------------------------------------------------------
@@ -910,7 +945,22 @@ int main() {
               (char_literal
                 (character))
               (char_literal
-                (character)))))))))
+                (character))))))
+          (expression_statement
+            (compound_literal_expression
+              (storage_class_specifier)
+              (type_descriptor
+                (primitive_type))
+              (initializer_list
+                (number_literal))))
+          (expression_statement
+            (compound_literal_expression
+              (storage_class_specifier)
+              (storage_class_specifier)
+              (type_descriptor
+                (sized_type_specifier))
+              (initializer_list
+                (number_literal)))))))
 
 ================================================================================
 Compound literals with trailing commas

@@ -3,6 +3,7 @@
 ((identifier) @constant
  (#match? @constant "^[A-Z][A-Z\\d_]*$"))
 
+"_Generic" @keyword
 "break" @keyword
 "case" @keyword
 "const" @keyword
@@ -24,6 +25,7 @@
 "union" @keyword
 "volatile" @keyword
 "while" @keyword
+"goto" @keyword
 
 "#define" @keyword
 "#elif" @keyword
@@ -35,22 +37,50 @@
 "#include" @keyword
 (preproc_directive) @keyword
 
-"--" @operator
-"-" @operator
-"-=" @operator
-"->" @operator
 "=" @operator
-"!=" @operator
-"*" @operator
-"&" @operator
-"&&" @operator
-"+" @operator
-"++" @operator
 "+=" @operator
-"<" @operator
-"==" @operator
-">" @operator
+"-=" @operator
+"*=" @operator
+"/=" @operator
+"%=" @operator
+"&=" @operator
+"|=" @operator
+"^=" @operator
+"<<=" @operator
+">>=" @operator
+
+"++" @operator
+"--" @operator
+
+"+" @operator
+"-" @operator
+"*" @operator
+"/" @operator
+"%" @operator
+"~" @operator
+"&" @operator
+"|" @operator
+"^" @operator
+"<<" @operator
+">>" @operator
+
+"!" @operator
+"&&" @operator
 "||" @operator
+
+"==" @operator
+"!=" @operator
+"<" @operator
+">" @operator
+"<=" @operator
+">=" @operator
+
+"->" @operator
+
+"?" @operator
+":" @operator
+
+
 
 "." @delimiter
 ";" @delimiter

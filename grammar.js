@@ -654,7 +654,7 @@ export default grammar({
       'max_align_t',
       ...[8, 16, 32, 64].map(n => `int${n}_t`),
       ...[8, 16, 32, 64].map(n => `uint${n}_t`),
-      ...[8, 16, 32, 64].map(n => `char${n}_t`),
+      ...[8, 16, 32].map(n => `char${n}_t`),
     )),
 
     enum_specifier: $ => seq(
@@ -663,6 +663,10 @@ export default grammar({
         seq(
           field('name', $._type_identifier),
           optional(seq(':', field('underlying_type', $.primitive_type))),
+          field('body', optional($.enumerator_list)),
+        ),
+        seq(
+          seq(':', field('underlying_type', $.primitive_type)),
           field('body', optional($.enumerator_list)),
         ),
         field('body', $.enumerator_list),
@@ -1089,7 +1093,7 @@ export default grammar({
     sizeof_expression: $ => prec(PREC.SIZEOF, seq(
       'sizeof',
       choice(
-        field('value', $.expression),
+        field('value', prec.dynamic(1, $.expression)),
         seq('(', field('type', $.type_descriptor), ')'),
       ),
     )),
@@ -1209,6 +1213,7 @@ export default grammar({
 
     compound_literal_expression: $ => seq(
       '(',
+      field('storage_class', repeat($.storage_class_specifier)),
       field('type', $.type_descriptor),
       ')',
       field('value', $.initializer_list),
@@ -1289,7 +1294,8 @@ export default grammar({
       choice('L\'', 'u\'', 'U\'', 'u8\'', '\''),
       repeat1(choice(
         $.escape_sequence,
-        alias(token.immediate(/[^\n']/), $.character),
+        alias(token.immediate(/[^\\\n']/), $.character),
+        $.invalid_escape_sequence,
       )),
       '\'',
     ),
@@ -1310,6 +1316,7 @@ export default grammar({
       repeat(choice(
         alias(token.immediate(prec(1, /[^\\"\n]+/)), $.string_content),
         $.escape_sequence,
+        $.invalid_escape_sequence,
       )),
       '"',
     ),
@@ -1317,11 +1324,20 @@ export default grammar({
     escape_sequence: _ => token(prec(1, seq(
       '\\',
       choice(
-        /[^xuU]/,
-        /\d{2,3}/,
-        /x[0-9a-fA-F]{1,4}/,
+        /['"?\\abfnrtv]/,
+        /[0-7]{1,3}/,
+        /x[0-9a-fA-F]+/,
         /u[0-9a-fA-F]{4}/,
         /U[0-9a-fA-F]{8}/,
+      ),
+    ))),
+
+    invalid_escape_sequence: _ => token(prec(1, seq(
+      '\\',
+      choice(
+        /[^'"?\\abfnrtv]/,
+        /u[0-9a-fA-F]{1,3}/,
+        /U[0-9a-fA-F]{1,7}/,
       ),
     ))),
 
