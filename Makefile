@@ -1,6 +1,6 @@
 LANGUAGE_NAME := tree-sitter-c-orchard
 HOMEPAGE_URL := https://codeberg.org/grammar-orchard/tree-sitter-c-orchard
-VERSION := 0.2.0
+VERSION := 0.3.0
 DESCRIPTION := C grammar for tree-sitter
 
 # repository

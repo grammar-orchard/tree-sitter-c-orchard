@@ -6711,10 +6711,99 @@
           },
           {
             "type": "SYMBOL",
+            "name": "gnu_raw_string_literal"
+          },
+          {
+            "type": "SYMBOL",
             "name": "concatenated_string"
           }
         ]
       }
+    },
+    "gnu_raw_string_literal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "R\""
+            },
+            {
+              "type": "STRING",
+              "value": "LR\""
+            },
+            {
+              "type": "STRING",
+              "value": "uR\""
+            },
+            {
+              "type": "STRING",
+              "value": "UR\""
+            },
+            {
+              "type": "STRING",
+              "value": "u8R\""
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "delimiter",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "gnu_raw_string_delimiter"
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": "("
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "gnu_raw_string_content"
+                },
+                {
+                  "type": "STRING",
+                  "value": ")"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "gnu_raw_string_delimiter"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "("
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "gnu_raw_string_content"
+                },
+                {
+                  "type": "STRING",
+                  "value": ")"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
     },
     "comma_expression": {
       "type": "SEQ",
@@ -9339,8 +9428,17 @@
                     "name": "identifier"
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "string_literal"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "string_literal"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "gnu_raw_string_literal"
+                      }
+                    ]
                   }
                 ]
               },
@@ -9348,12 +9446,30 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "SYMBOL",
-                    "name": "string_literal"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "string_literal"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "gnu_raw_string_literal"
+                      }
+                    ]
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "string_literal"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "string_literal"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "gnu_raw_string_literal"
+                      }
+                    ]
                   }
                 ]
               },
@@ -9361,8 +9477,17 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "SYMBOL",
-                    "name": "string_literal"
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "string_literal"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "gnu_raw_string_literal"
+                      }
+                    ]
                   },
                   {
                     "type": "SYMBOL",
@@ -9380,6 +9505,10 @@
                 {
                   "type": "SYMBOL",
                   "name": "string_literal"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "gnu_raw_string_literal"
                 },
                 {
                   "type": "SYMBOL",
@@ -9804,7 +9933,16 @@
     ]
   ],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "gnu_raw_string_delimiter"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "gnu_raw_string_content"
+    }
+  ],
   "inline": [
     "_type_identifier",
     "_field_identifier",

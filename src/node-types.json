@@ -176,6 +176,10 @@
         "named": true
       },
       {
+        "type": "gnu_raw_string_literal",
+        "named": true
+      },
+      {
         "type": "identifier",
         "named": true
       },
@@ -1189,6 +1193,10 @@
       "required": true,
       "types": [
         {
+          "type": "gnu_raw_string_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
@@ -1927,6 +1935,10 @@
             "named": true
           },
           {
+            "type": "gnu_raw_string_literal",
+            "named": true
+          },
+          {
             "type": "string_literal",
             "named": true
           }
@@ -1944,6 +1956,10 @@
         "types": [
           {
             "type": "concatenated_string",
+            "named": true
+          },
+          {
+            "type": "gnu_raw_string_literal",
             "named": true
           },
           {
@@ -2128,6 +2144,36 @@
     "type": "gnu_asm_qualifier",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "gnu_raw_string_literal",
+    "named": true,
+    "fields": {
+      "delimiter": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "gnu_raw_string_delimiter",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "gnu_raw_string_content",
+          "named": true
+        },
+        {
+          "type": "gnu_raw_string_delimiter",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "goto_statement",
@@ -4194,7 +4240,15 @@
     "named": false
   },
   {
+    "type": "LR\"",
+    "named": false
+  },
+  {
     "type": "NULL",
+    "named": false
+  },
+  {
+    "type": "R\"",
     "named": false
   },
   {
@@ -4203,6 +4257,10 @@
   },
   {
     "type": "U'",
+    "named": false
+  },
+  {
+    "type": "UR\"",
     "named": false
   },
   {
@@ -4451,6 +4509,14 @@
     "named": false
   },
   {
+    "type": "gnu_raw_string_content",
+    "named": true
+  },
+  {
+    "type": "gnu_raw_string_delimiter",
+    "named": true
+  },
+  {
     "type": "goto",
     "named": false
   },
@@ -4592,6 +4658,14 @@
   },
   {
     "type": "u8'",
+    "named": false
+  },
+  {
+    "type": "u8R\"",
+    "named": false
+  },
+  {
+    "type": "uR\"",
     "named": false
   },
   {
